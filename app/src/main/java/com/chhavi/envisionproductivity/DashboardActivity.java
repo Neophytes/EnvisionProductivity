@@ -29,7 +29,10 @@ public class DashboardActivity extends AppCompatActivity {
         fitness = (ArrayList<KeyPair>)getIntent().getSerializableExtra("Fitness");
 
         List<KeyPair> gmailLabel = new ArrayList<KeyPair>();
-        gmailLabel = (ArrayList<KeyPair>)getIntent().getSerializableExtra("gmailLabel");
+        gmailLabel.add(new KeyPair("Messages Unread", "23"));
+        gmailLabel.add(new KeyPair("Messages To be replied", "52"));
+        gmailLabel.add(new KeyPair("Total Messages", "113"));
+     //   gmailLabel = (ArrayList<KeyPair>)getIntent().getSerializableExtra("gmailLabel");
 
 
      //   FitnessActivity fitnessActivity = FitnessActivity.getSingletonObject();
@@ -40,35 +43,35 @@ public class DashboardActivity extends AppCompatActivity {
         for(int i=0;i<10;i++)
             mData1.add("1 Put Your Card Data Here :) ");
         SwipeStack swipeStack1 = (SwipeStack) findViewById(R.id.swipeStack1);
-        swipeStack1.setAdapter(new SwipeStackAdapter(DashboardActivity.this,mData1));
+        swipeStack1.setAdapter(new SwipeStackAdapter(DashboardActivity.this,fitness));
 
         List<String> mData2 = new ArrayList<>();
         for(int i=0;i<10;i++)
             mData2.add("2 Put Your Card Data Here :) ");
         SwipeStack swipeStack2 = (SwipeStack) findViewById(R.id.swipeStack2);
-        swipeStack2.setAdapter(new SwipeStackAdapter(DashboardActivity.this,mData2));
+        swipeStack2.setAdapter(new SwipeStackAdapter(DashboardActivity.this,gmailLabel));
 
         List<String> mData3 = new ArrayList<>();
         for(int i=0;i<10;i++)
             mData3.add("3 Put Your Card Data Here :) ");
         SwipeStack swipeStack3 = (SwipeStack) findViewById(R.id.swipeStack3);
-        swipeStack3.setAdapter(new SwipeStackAdapter(DashboardActivity.this, mData3));
+        swipeStack3.setAdapter(new SwipeStackAdapter(DashboardActivity.this, fitness));
 
         List<String> mData4 = new ArrayList<>();
         for(int i=0;i<10;i++)
             mData4.add("4 Put Your Card Data Here :) ");
         SwipeStack swipeStack4 = (SwipeStack) findViewById(R.id.swipeStack4);
-        swipeStack4.setAdapter(new SwipeStackAdapter(DashboardActivity.this,mData4));
+        swipeStack4.setAdapter(new SwipeStackAdapter(DashboardActivity.this,fitness));
 
     }
 
 
     public class SwipeStackAdapter extends BaseAdapter {
 
-        private List<String> mData;
+        private List<KeyPair> mData;
         private Context context;
 
-        public SwipeStackAdapter(Context context, List<String> data) {
+        public SwipeStackAdapter(Context context, List<KeyPair> data) {
             this.mData = data;
             this.context = context;
         }
@@ -79,7 +82,7 @@ public class DashboardActivity extends AppCompatActivity {
         }
 
         @Override
-        public String getItem(int position) {
+        public KeyPair getItem(int position) {
             return mData.get(position);
         }
 
@@ -91,8 +94,10 @@ public class DashboardActivity extends AppCompatActivity {
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
             convertView = getLayoutInflater().inflate(R.layout.card, parent, false);
-            TextView textViewCard = (TextView) convertView.findViewById(R.id.textViewCard);
-            textViewCard.setText(mData.get(position));
+            TextView textHeader = (TextView) convertView.findViewById(R.id.header);
+            TextView text = (TextView) convertView.findViewById(R.id.text);
+            textHeader.setText(mData.get(position).getName());
+            text.setText(mData.get(position).getValue());
 
            // FitnessActivity.
             return convertView;
