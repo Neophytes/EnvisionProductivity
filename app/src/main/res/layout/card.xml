@@ -7,14 +7,26 @@
         android:layout_width="150dp"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="New Text"
+        android:text="HEADER"
         android:textSize="17sp"
-        android:id="@+id/textViewCard"
+        android:id="@+id/header"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/orange"
+        android:textStyle="bold"
+        android:layout_margin="30dp"
+        />
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="Text"
+        android:textSize="17sp"
+        android:id="@+id/text"
         android:layout_gravity="center_horizontal"
         android:background="@color/orange"
         android:textStyle="italic"
         android:layout_margin="30dp"
-
         />
 
 </LinearLayout>

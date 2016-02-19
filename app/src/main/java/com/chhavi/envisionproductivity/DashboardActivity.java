@@ -60,8 +60,8 @@ public class DashboardActivity extends AppCompatActivity {
         SwipeStack swipeStack4 = (SwipeStack) findViewById(R.id.swipeStack4);
         swipeStack4.setAdapter(new SwipeStackAdapter(DashboardActivity.this,mData4));
 
-
     }
+
 
     public class SwipeStackAdapter extends BaseAdapter {
 
