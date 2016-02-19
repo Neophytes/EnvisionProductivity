@@ -23,9 +23,17 @@
         <activity android:name=".GmailMailsActivity"></activity>
 
 
-        <activity android:name=".Rescuetime_Sample"></activity>
+        <activity android:name=".Rescuetime_Sample">
 
-        <activity android:name=".SplashScreen"></activity>
+        </activity>
+
+
+        <activity android:name=".SplashScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <activity android:name=".FitnessActivity">
 
@@ -33,10 +41,7 @@
 
 
         <activity android:name=".DashboardActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
     </application>
 

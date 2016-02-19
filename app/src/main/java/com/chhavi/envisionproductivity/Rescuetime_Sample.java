@@ -59,11 +59,12 @@ public class Rescuetime_Sample extends AppCompatActivity {
             // Do some validation here
 
             try {
-                URL url = new URL(API_URL + "key=" + API_KEY + "&perspective=interval&restrict_kind=productivity&interval=hour&restrict_begin=2014-11-01&restrict_end=2016-02-19&format=json");
+                URL url = new URL(API_URL + "key=" + API_KEY + "&perspective=interval&restrict_kind=productivity&interval=hour&restrict_begin=2014-11-01&restrict_end=2016-02-20&format=json");
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 
                 try {
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                    Log.i("JSON", bufferedReader.readLine());
                     StringBuilder stringBuilder = new StringBuilder();
                     String line;
                     while ((line = bufferedReader.readLine()) != null) {
