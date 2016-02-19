@@ -1,7 +1,5 @@
 package com.chhavi.envisionproductivity;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.api.client.extensions.android.http.AndroidHttp;
@@ -12,15 +10,12 @@ import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecovera
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
-import com.google.api.client.util.DateTime;
 import com.google.api.client.util.ExponentialBackOff;
 
-import com.google.api.services.calendar.model.Event;
-import com.google.api.services.calendar.model.Events;
-import com.google.api.services.gmail.Gmail;
-import com.google.api.services.gmail.GmailScopes;
+import com.google.api.services.calendar.CalendarScopes;
+import com.google.api.client.util.DateTime;
 
-import com.google.api.services.gmail.model.*;
+import com.google.api.services.calendar.model.*;
 
 import android.accounts.AccountManager;
 import android.app.Activity;
@@ -35,7 +30,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -45,8 +39,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class GmailMailsActivity extends AppCompatActivity {
-
+public class MainActivity extends Activity {
     GoogleAccountCredential mCredential;
     private TextView mOutputText;
     ProgressDialog mProgress;
@@ -55,7 +48,7 @@ public class GmailMailsActivity extends AppCompatActivity {
     static final int REQUEST_AUTHORIZATION = 1001;
     static final int REQUEST_GOOGLE_PLAY_SERVICES = 1002;
     private static final String PREF_ACCOUNT_NAME = "accountName";
-    private static final String[] SCOPES = { GmailScopes.GMAIL_LABELS };
+    private static final String[] SCOPES = { CalendarScopes.CALENDAR_READONLY };
 
     /**
      * Create the main activity.
@@ -84,7 +77,7 @@ public class GmailMailsActivity extends AppCompatActivity {
         activityLayout.addView(mOutputText);
 
         mProgress = new ProgressDialog(this);
-        mProgress.setMessage("Calling Gmail API ...");
+        mProgress.setMessage("Calling Google Calendar API ...");
 
         setContentView(activityLayout);
 
@@ -160,7 +153,7 @@ public class GmailMailsActivity extends AppCompatActivity {
     }
 
     /**
-     * Attempt to get a set of data from the Gmail API to display. If the
+     * Attempt to get a set of data from the Google Calendar API to display. If the
      * email address isn't known yet, then call chooseAccount() method so the
      * user can pick an account.
      */
@@ -225,30 +218,30 @@ public class GmailMailsActivity extends AppCompatActivity {
             final int connectionStatusCode) {
         Dialog dialog = GooglePlayServicesUtil.getErrorDialog(
                 connectionStatusCode,
-                GmailMailsActivity.this,
+                MainActivity.this,
                 REQUEST_GOOGLE_PLAY_SERVICES);
         dialog.show();
     }
 
     /**
-     * An asynchronous task that handles the Gmail API call.
+     * An asynchronous task that handles the Google Calendar API call.
      * Placing the API calls in their own task ensures the UI stays responsive.
      */
     private class MakeRequestTask extends AsyncTask<Void, Void, List<String>> {
-        private com.google.api.services.gmail.Gmail mService = null;
+        private com.google.api.services.calendar.Calendar mService = null;
         private Exception mLastError = null;
 
         public MakeRequestTask(GoogleAccountCredential credential) {
             HttpTransport transport = AndroidHttp.newCompatibleTransport();
             JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
-            mService = new com.google.api.services.gmail.Gmail.Builder(
+            mService = new com.google.api.services.calendar.Calendar.Builder(
                     transport, jsonFactory, credential)
-                    .setApplicationName("Gmail API Android Quickstart")
+                    .setApplicationName("Google Calendar API Android Quickstart")
                     .build();
         }
 
         /**
-         * Background task to call Gmail API.
+         * Background task to call Google Calendar API.
          * @param params no parameters needed for this task.
          */
         @Override
@@ -263,95 +256,37 @@ public class GmailMailsActivity extends AppCompatActivity {
         }
 
         /**
-         * Fetch a list of Gmail labels attached to the specified account.
-         * @return List of Strings labels.
+         * Fetch a list of the next 10 events from the primary calendar.
+         * @return List of Strings describing returned events.
          * @throws IOException
          */
         private List<String> getDataFromApi() throws IOException {
-            // Get the labels in the user's account.
-            String user = "me";
-            List<String> labels = new ArrayList<String>();
-            ListLabelsResponse listResponse =
-                    mService.users().labels().list(user).execute();
-            for (Label label : listResponse.getLabels()) {
-                labels.add(label.getName());
+            // List the next 10 events from the primary calendar.
+            DateTime now = new DateTime(System.currentTimeMillis());
+            List<String> eventStrings = new ArrayList<String>();
+            Events events = mService.events().list("primary")
+                    .setMaxResults(10)
+                    .setTimeMin(now)
+                    .setOrderBy("startTime")
+                    .setSingleEvents(true)
+                    .execute();
+            List<Event> items = events.getItems();
+
+            for (Event event : items) {
+                DateTime start = event.getStart().getDateTime();
+                if (start == null) {
+                    // All-day events don't have start times, so just use
+                    // the start date.
+                    start = event.getStart().getDate();
+                }
+                eventStrings.add(
+                        String.format("%s (%s)", event.getSummary(), start));
             }
-            getLabel(mService, user, "INBOX");
-            return labels;
+            return eventStrings;
         }
 
-        public void getLabel(Gmail service, String userId, String labelId)
-                throws IOException {
-            Label label = service.users().labels().get(userId, labelId).execute();
-            Log.i("Total messages",label.getMessagesTotal().toString());
-            Log.i("Unread", label.getMessagesUnread().toString());
-          //  Log.i("Unread msgs: ", label.get("messagesTotal").toString());
-            System.out.println("Label " + label.getName() + " retrieved.");
-            System.out.println(label.toPrettyString());
-            Log.i("Label", label.toPrettyString());
-        }
 
-//        private class MakeRequestTask extends AsyncTask<Void, Void, List<String>> {
-//            private com.google.api.services.calendar.Calendar mService = null;
-//            private Exception mLastError = null;
-//
-//            public MakeRequestTask(GoogleAccountCredential credential) {
-//                HttpTransport transport = AndroidHttp.newCompatibleTransport();
-//                JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
-//                mService = new com.google.api.services.calendar.Calendar.Builder(
-//                        transport, jsonFactory, credential)
-//                        .setApplicationName("Google Calendar API Android Quickstart")
-//                        .build();
-//            }
-
-            /**
-             * Background task to call Google Calendar API.
-             * @param params no parameters needed for this task.
-             */
-         //   @Override
-//            protected List<String> doInBackground(Void... params) {
-//                try {
-//                    return getDataFromApi();
-//                } catch (Exception e) {
-//                    mLastError = e;
-//                    cancel(true);
-//                    return null;
-//                }
-//            }
-
-            /**
-             * Fetch a list of the next 10 events from the primary calendar.
-             * @return List of Strings describing returned events.
-             * @throws IOException
-             */
-//            private List<String> getDataFromApi() throws IOException {
-//                // List the next 10 events from the primary calendar.
-//                DateTime now = new DateTime(System.currentTimeMillis());
-//                List<String> eventStrings = new ArrayList<String>();
-//                Events events = mService.events().list("primary")
-//                        .setMaxResults(10)
-//                        .setTimeMin(now)
-//                        .setOrderBy("startTime")
-//                        .setSingleEvents(true)
-//                        .execute();
-//                List<Event> items = events.getItems();
-//
-//                for (Event event : items) {
-//                    DateTime start = event.getStart().getDateTime();
-//                    if (start == null) {
-//                        // All-day events don't have start times, so just use
-//                        // the start date.
-//                        start = event.getStart().getDate();
-//                    }
-//                    eventStrings.add(
-//                            String.format("%s (%s)", event.getSummary(), start));
-//                }
-//                return eventStrings;
-//            }
-
-
-
-            @Override
+        @Override
         protected void onPreExecute() {
             mOutputText.setText("");
             mProgress.show();
@@ -363,7 +298,7 @@ public class GmailMailsActivity extends AppCompatActivity {
             if (output == null || output.size() == 0) {
                 mOutputText.setText("No results returned.");
             } else {
-                output.add(0, "Data retrieved using the Gmail API:");
+                output.add(0, "Data retrieved using the Google Calendar API:");
                 mOutputText.setText(TextUtils.join("\n", output));
             }
         }
@@ -379,7 +314,7 @@ public class GmailMailsActivity extends AppCompatActivity {
                 } else if (mLastError instanceof UserRecoverableAuthIOException) {
                     startActivityForResult(
                             ((UserRecoverableAuthIOException) mLastError).getIntent(),
-                            GmailMailsActivity.REQUEST_AUTHORIZATION);
+                            MainActivity.REQUEST_AUTHORIZATION);
                 } else {
                     mOutputText.setText("The following error occurred:\n"
                             + mLastError.getMessage());
@@ -390,5 +325,3 @@ public class GmailMailsActivity extends AppCompatActivity {
         }
     }
 }
-
-
