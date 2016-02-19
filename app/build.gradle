@@ -33,4 +33,5 @@ dependencies {
     compile 'com.google.android.gms:play-services-fitness:8.4.0'
     compile 'com.android.support:design:23.+'
 
+
 }
