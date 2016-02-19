@@ -65,6 +65,7 @@ public class Rescuetime_Sample extends AppCompatActivity {
 
                 try {
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                    Log.i("JSON", bufferedReader.readLine());
                     StringBuilder stringBuilder = new StringBuilder();
                     String line;
                     while ((line = bufferedReader.readLine()) != null) {
@@ -110,21 +111,7 @@ public class Rescuetime_Sample extends AppCompatActivity {
             }
 
             responseView.setText(response);
-            // TODO: check this.exception
-            // TODO: do something with the feed
 
-//            try {
-//                JSONObject object = (JSONObject) new JSONTokener(response).nextValue();
-//                String requestID = object.getString("requestId");
-//                int likelihood = object.getInt("likelihood");
-//                JSONArray photos = object.getJSONArray("photos");
-//                .
-//                .
-//                .
-//                .
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
         }
     }
 }
