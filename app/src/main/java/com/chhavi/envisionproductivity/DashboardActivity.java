@@ -26,12 +26,12 @@ public class DashboardActivity extends AppCompatActivity {
         setContentView(R.layout.dashboard_layout);
 
         List<KeyPair> fitness = new ArrayList<KeyPair>();
-        fitness = (ArrayList<KeyPair>)getIntent().getSerializableExtra("Fitness");
+        //fitness = (ArrayList<KeyPair>)getIntent().getSerializableExtra("Fitness");
 
 
      //   FitnessActivity fitnessActivity = FitnessActivity.getSingletonObject();
      //   ArrayList<KeyPair> fitnessPair = fitnessActivity.fitnessPairs;
-        Log.e("run", fitness.get(0).getValue());
+        //Log.e("run", fitness.get(0).getValue());
 
         List<String> mData1 = new ArrayList<>();
         for(int i=0;i<10;i++)
@@ -47,13 +47,13 @@ public class DashboardActivity extends AppCompatActivity {
 
         List<String> mData3 = new ArrayList<>();
         for(int i=0;i<10;i++)
-            mData2.add("3 Put Your Card Data Here :) ");
+            mData3.add("3 Put Your Card Data Here :) ");
         SwipeStack swipeStack3 = (SwipeStack) findViewById(R.id.swipeStack3);
-        swipeStack2.setAdapter(new SwipeStackAdapter(DashboardActivity.this,mData3));
+        swipeStack3.setAdapter(new SwipeStackAdapter(DashboardActivity.this,mData3));
 
         List<String> mData4 = new ArrayList<>();
         for(int i=0;i<10;i++)
-            mData2.add("4 Put Your Card Data Here :) ");
+            mData4.add("4 Put Your Card Data Here :) ");
         SwipeStack swipeStack4 = (SwipeStack) findViewById(R.id.swipeStack4);
         swipeStack4.setAdapter(new SwipeStackAdapter(DashboardActivity.this,mData4));
 
