@@ -12,11 +12,8 @@ import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecovera
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
-import com.google.api.client.util.DateTime;
 import com.google.api.client.util.ExponentialBackOff;
 
-import com.google.api.services.calendar.model.Event;
-import com.google.api.services.calendar.model.Events;
 import com.google.api.services.gmail.Gmail;
 import com.google.api.services.gmail.GmailScopes;
 
@@ -48,6 +45,7 @@ import java.util.List;
 public class GmailMailsActivity extends AppCompatActivity {
 
     GoogleAccountCredential mCredential;
+    private TextView mOutputText;
     ProgressDialog mProgress;
 
     static final int REQUEST_ACCOUNT_PICKER = 1000;
@@ -55,7 +53,7 @@ public class GmailMailsActivity extends AppCompatActivity {
     static final int REQUEST_GOOGLE_PLAY_SERVICES = 1002;
     private static final String PREF_ACCOUNT_NAME = "accountName";
     private static final String[] SCOPES = { GmailScopes.GMAIL_LABELS };
-    public static ArrayList<KeyPair> gmailLabel;
+    public static ArrayList<KeyPair> gmail;
 
     /**
      * Create the main activity.
@@ -64,32 +62,30 @@ public class GmailMailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        LinearLayout activityLayout = new LinearLayout(this);
-//        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-//                LinearLayout.LayoutParams.MATCH_PARENT,
-//                LinearLayout.LayoutParams.MATCH_PARENT);
-//        activityLayout.setLayoutParams(lp);
-//        activityLayout.setOrientation(LinearLayout.VERTICAL);
-//        activityLayout.setPadding(16, 16, 16, 16);
-//
-//        ViewGroup.LayoutParams tlp = new ViewGroup.LayoutParams(
-//                ViewGroup.LayoutParams.WRAP_CONTENT,
-//                ViewGroup.LayoutParams.WRAP_CONTENT);
-//
-//        mOutputText = new TextView(this);
-//        mOutputText.setLayoutParams(tlp);
-//        mOutputText.setPadding(16, 16, 16, 16);
-//        mOutputText.setVerticalScrollBarEnabled(true);
-//        mOutputText.setMovementMethod(new ScrollingMovementMethod());
-//        activityLayout.addView(mOutputText);
+        gmail = new ArrayList<>();
+        LinearLayout activityLayout = new LinearLayout(this);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+        activityLayout.setLayoutParams(lp);
+        activityLayout.setOrientation(LinearLayout.VERTICAL);
+        activityLayout.setPadding(16, 16, 16, 16);
 
-        gmailLabel = new ArrayList<>();
+        ViewGroup.LayoutParams tlp = new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        mOutputText = new TextView(this);
+        mOutputText.setLayoutParams(tlp);
+        mOutputText.setPadding(16, 16, 16, 16);
+        mOutputText.setVerticalScrollBarEnabled(true);
+        mOutputText.setMovementMethod(new ScrollingMovementMethod());
+        activityLayout.addView(mOutputText);
+
         mProgress = new ProgressDialog(this);
         mProgress.setMessage("Calling Gmail API ...");
 
-//        setContentView(activityLayout);
-
-        setContentView(R.layout.activity_gmail_mails);
+        setContentView(activityLayout);
 
         // Initialize credentials and service object.
         SharedPreferences settings = getPreferences(Context.MODE_PRIVATE);
@@ -110,8 +106,8 @@ public class GmailMailsActivity extends AppCompatActivity {
         if (isGooglePlayServicesAvailable()) {
             refreshResults();
         } else {
-//            mOutputText.setText("Google Play Services required: " +
-//                    "after installing, close and relaunch this app.");
+            mOutputText.setText("Google Play Services required: " +
+                    "after installing, close and relaunch this app.");
         }
     }
 
@@ -149,7 +145,7 @@ public class GmailMailsActivity extends AppCompatActivity {
                         editor.apply();
                     }
                 } else if (resultCode == RESULT_CANCELED) {
-                   // mOutputText.setText("Account unspecified.");
+                    mOutputText.setText("Account unspecified.");
                 }
                 break;
             case REQUEST_AUTHORIZATION:
@@ -174,7 +170,7 @@ public class GmailMailsActivity extends AppCompatActivity {
             if (isDeviceOnline()) {
                 new MakeRequestTask(mCredential).execute();
             } else {
-             //   mOutputText.setText("No network connection available.");
+                mOutputText.setText("No network connection available.");
             }
         }
     }
@@ -286,80 +282,23 @@ public class GmailMailsActivity extends AppCompatActivity {
         public void getLabel(Gmail service, String userId, String labelId)
                 throws IOException {
             Label label = service.users().labels().get(userId, labelId).execute();
-            Log.i("Total messages", label.getMessagesTotal().toString());
-            gmailLabel.add(new KeyPair("Total Messages", label.getMessagesTotal().toString()));
-            gmailLabel.add(new KeyPair("Unread", label.getMessagesUnread().toString()));
+            Log.i("Total messages",label.getMessagesTotal().toString());
+            gmail.add(new KeyPair("Total messages", label.getMessagesTotal().toString()));
+            gmail.add(new KeyPair("Unread", label.getMessagesUnread().toString()));
+            Intent intent = new Intent(GmailMailsActivity.this, FitnessActivity.class);
+            intent.putExtra("gmailLabel", (ArrayList<KeyPair>) gmail);
+            startActivity(intent);
             Log.i("Unread", label.getMessagesUnread().toString());
           //  Log.i("Unread msgs: ", label.get("messagesTotal").toString());
             System.out.println("Label " + label.getName() + " retrieved.");
             System.out.println(label.toPrettyString());
             Log.i("Label", label.toPrettyString());
-            startActivity(new Intent(GmailMailsActivity.this, FitnessActivity.class).putExtra("gmailLabel", (ArrayList<KeyPair>) gmailLabel));
-
         }
 
-//        private class MakeRequestTask extends AsyncTask<Void, Void, List<String>> {
-//            private com.google.api.services.calendar.Calendar mService = null;
-//            private Exception mLastError = null;
-//
-//            public MakeRequestTask(GoogleAccountCredential credential) {
-//                HttpTransport transport = AndroidHttp.newCompatibleTransport();
-//                JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
-//                mService = new com.google.api.services.calendar.Calendar.Builder(
-//                        transport, jsonFactory, credential)
-//                        .setApplicationName("Google Calendar API Android Quickstart")
-//                        .build();
-//            }
 
-            /**
-             * Background task to call Google Calendar API.
-             * @param params no parameters needed for this task.
-             */
-         //   @Override
-//            protected List<String> doInBackground(Void... params) {
-//                try {
-//                    return getDataFromApi();
-//                } catch (Exception e) {
-//                    mLastError = e;
-//                    cancel(true);
-//                    return null;
-//                }
-//            }
-
-            /**
-             * Fetch a list of the next 10 events from the primary calendar.
-             * @return List of Strings describing returned events.
-             * @throws IOException
-             */
-//            private List<String> getDataFromApi() throws IOException {
-//                // List the next 10 events from the primary calendar.
-//                DateTime now = new DateTime(System.currentTimeMillis());
-//                List<String> eventStrings = new ArrayList<String>();
-//                Events events = mService.events().list("primary")
-//                        .setMaxResults(10)
-//                        .setTimeMin(now)
-//                        .setOrderBy("startTime")
-//                        .setSingleEvents(true)
-//                        .execute();
-//                List<Event> items = events.getItems();
-//
-//                for (Event event : items) {
-//                    DateTime start = event.getStart().getDateTime();
-//                    if (start == null) {
-//                        // All-day events don't have start times, so just use
-//                        // the start date.
-//                        start = event.getStart().getDate();
-//                    }
-//                    eventStrings.add(
-//                            String.format("%s (%s)", event.getSummary(), start));
-//                }
-//                return eventStrings;
-//            }
-
-
-
-            @Override
+        @Override
         protected void onPreExecute() {
+            mOutputText.setText("");
             mProgress.show();
         }
 
@@ -367,10 +306,10 @@ public class GmailMailsActivity extends AppCompatActivity {
         protected void onPostExecute(List<String> output) {
             mProgress.hide();
             if (output == null || output.size() == 0) {
-                Log.i("info null","No results returned.");
+                mOutputText.setText("No results returned.");
             } else {
                 output.add(0, "Data retrieved using the Gmail API:");
-                Log.i("info",TextUtils.join("\n", output));
+                mOutputText.setText(TextUtils.join("\n", output));
             }
         }
 
@@ -387,11 +326,11 @@ public class GmailMailsActivity extends AppCompatActivity {
                             ((UserRecoverableAuthIOException) mLastError).getIntent(),
                             GmailMailsActivity.REQUEST_AUTHORIZATION);
                 } else {
-                    Log.i("error","The following error occurred:\n"
+                    mOutputText.setText("The following error occurred:\n"
                             + mLastError.getMessage());
                 }
             } else {
-                Log.i("error","Request cancelled.");
+                mOutputText.setText("Request cancelled.");
             }
         }
     }

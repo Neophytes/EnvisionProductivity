@@ -19,6 +19,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
 
 public class Rescuetime_Sample extends AppCompatActivity {
@@ -59,7 +60,7 @@ public class Rescuetime_Sample extends AppCompatActivity {
             // Do some validation here
 
             try {
-                URL url = new URL(API_URL + "key=" + API_KEY + "&perspective=interval&restrict_kind=productivity&interval=hour&restrict_begin=2014-11-01&restrict_end=2016-02-19&format=json");
+                URL url = new URL(API_URL + "key=" + API_KEY + "&perspective=interval&restrict_kind=productivity&interval=hour&restrict_begin=2014-11-01&restrict_end=2016-02-20&format=json");
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 
                 try {
@@ -88,6 +89,26 @@ public class Rescuetime_Sample extends AppCompatActivity {
             }
             progressBar.setVisibility(View.GONE);
             Log.i("INFO", response);
+            try {
+                JSONObject jsonObject = new JSONObject(response);
+                JSONArray header = jsonObject.getJSONArray("row_headers");
+                JSONArray rows = jsonObject.getJSONArray("rows");
+                ArrayList<String> Date = new ArrayList<>();
+                ArrayList<Integer> TimeSpent = new ArrayList<>();
+                ArrayList<Integer> NumberofPeople = new ArrayList<>();
+                ArrayList<Integer> Productivity = new ArrayList<>();
+                for(int i = 0;i< rows.length(); i++){
+                    JSONArray data = rows.getJSONArray(i);
+                    Date.add(data.getString(0));
+                    TimeSpent.add(data.getInt(1));
+                    NumberofPeople.add(data.getInt(2));
+                    Productivity.add(data.getInt(3));
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
             responseView.setText(response);
             // TODO: check this.exception
             // TODO: do something with the feed
