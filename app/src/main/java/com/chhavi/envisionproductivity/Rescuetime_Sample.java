@@ -19,6 +19,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
 
 public class Rescuetime_Sample extends AppCompatActivity {
@@ -89,22 +90,28 @@ public class Rescuetime_Sample extends AppCompatActivity {
             }
             progressBar.setVisibility(View.GONE);
             Log.i("INFO", response);
-            responseView.setText(response);
-            // TODO: check this.exception
-            // TODO: do something with the feed
+            try {
+                JSONObject jsonObject = new JSONObject(response);
+                JSONArray header = jsonObject.getJSONArray("row_headers");
+                JSONArray rows = jsonObject.getJSONArray("rows");
+                ArrayList<String> Date = new ArrayList<>();
+                ArrayList<Integer> TimeSpent = new ArrayList<>();
+                ArrayList<Integer> NumberofPeople = new ArrayList<>();
+                ArrayList<Integer> Productivity = new ArrayList<>();
+                for(int i = 0;i< rows.length(); i++){
+                    JSONArray data = rows.getJSONArray(i);
+                    Date.add(data.getString(0));
+                    TimeSpent.add(data.getInt(1));
+                    NumberofPeople.add(data.getInt(2));
+                    Productivity.add(data.getInt(3));
+                }
 
-//            try {
-//                JSONObject object = (JSONObject) new JSONTokener(response).nextValue();
-//                String requestID = object.getString("requestId");
-//                int likelihood = object.getInt("likelihood");
-//                JSONArray photos = object.getJSONArray("photos");
-//                .
-//                .
-//                .
-//                .
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            responseView.setText(response);
+
         }
     }
 }

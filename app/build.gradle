@@ -37,4 +37,6 @@ dependencies {
 
     compile 'com.android.support:design:23+'
     compile 'link.fls:swipestack:0.2.1'
+
+    compile 'com.github.paolorotolo:appintro:3.4.0'
 }
