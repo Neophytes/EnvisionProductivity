@@ -55,6 +55,7 @@ import com.google.android.gms.fitness.request.OnDataPointListener;
 import com.google.android.gms.fitness.request.SensorRequest;
 import com.google.android.gms.fitness.result.DataSourcesResult;
 
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 
@@ -69,6 +70,9 @@ public class FitnessActivity extends AppCompatActivity {
     private GoogleApiClient mClient = null;
     // [END auth_variable_references]
 
+    public static ArrayList<KeyPair> fitnessPairs;
+    public static FitnessActivity singletonObject;
+
     int previousValue = 0;
     private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 34;
 
@@ -76,15 +80,26 @@ public class FitnessActivity extends AppCompatActivity {
     // Need to hold a reference to this listener, as it's passed into the "unregister"
     // method in order to stop all sensors from sending data to this listener.
     private OnDataPointListener mListener;
+
+
+
     // [END mListener_variable_reference]
 
-
+    public static synchronized FitnessActivity getSingletonObject()
+    {
+        if (singletonObject == null)
+        {
+            singletonObject = new FitnessActivity();
+        }
+        return singletonObject;
+    }
     // [START auth_oncreate_setup]
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Put application specific code here.
 
+        fitnessPairs = new ArrayList<>();
         setContentView(R.layout.fitness_main);
         // This method sets up our custom logger, which will print all log messages to the device
         // screen, as well as to adb logcat.
@@ -116,7 +131,7 @@ public class FitnessActivity extends AppCompatActivity {
      *  can address. Examples of this include the user never having signed in before, or having
      *  multiple accounts on the device and needing to specify which account to use, etc.
      */
-    private void buildFitnessClient() {
+    public void buildFitnessClient() {
         if (mClient == null && checkPermissions()) {
             mClient = new GoogleApiClient.Builder(this)
                     .addApi(Fitness.SENSORS_API)
@@ -176,7 +191,7 @@ public class FitnessActivity extends AppCompatActivity {
         // Note: Fitness.SensorsApi.findDataSources() requires the ACCESS_FINE_LOCATION permission.
         Fitness.SensorsApi.findDataSources(mClient, new DataSourcesRequest.Builder()
                 // At least one datatype must be specified.
-                .setDataTypes(DataType.TYPE_LOCATION_SAMPLE
+                .setDataTypes(DataType.TYPE_STEP_COUNT_CUMULATIVE
                         )
                         // Can specify whether data type is raw or derived.
                 .setDataSourceTypes(DataSource.TYPE_RAW)
@@ -298,6 +313,13 @@ public class FitnessActivity extends AppCompatActivity {
                  //   Log.i(TAG, "Difference in steps: " + (val.asInt()));
 
                     previousValue = val.asInt();
+                    fitnessPairs.add(new KeyPair("Step Count", val.asInt() + ""));
+                    fitnessPairs.add(new KeyPair("Step Count", val.asInt() + ""));
+                    fitnessPairs.add(new KeyPair("Step Count", val.asInt() + ""));
+                    fitnessPairs.add(new KeyPair("Step Count", val.asInt() + ""));
+                    Log.e("asd", fitnessPairs.get(0).getValue());
+                    startActivity(new Intent(FitnessActivity.this, DashboardActivity.class).putExtra("Fitness", (ArrayList<KeyPair>)fitnessPairs));
+
                 }
             }
         };
