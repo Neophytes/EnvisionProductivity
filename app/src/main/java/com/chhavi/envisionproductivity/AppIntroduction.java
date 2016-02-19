@@ -14,8 +14,8 @@ public class AppIntroduction extends AppIntro {
 
     @Override
     public void init(Bundle savedInstanceState) {
-        addSlide(AppIntroFragment.newInstance("Title", "asdas'", R.drawable.ic_navigate_next_white_24dp, R.color.colorPrimary));
-        addSlide(AppIntroFragment.newInstance("Title", "asdas'", R.drawable.ic_navigate_next_white_24dp, R.color.colorPrimary));
+        addSlide(AppIntroFragment.newInstance("Swipe Off !", "Swipe off the cards.'", R.drawable.ic_navigate_next_white_24dp, R.color.colorPrimary));
+        addSlide(AppIntroFragment.newInstance("Swipe Off !", "Achievement Unlocked.'", R.drawable.ic_navigate_next_white_24dp, R.color.colorPrimary));
     }
 
     @Override

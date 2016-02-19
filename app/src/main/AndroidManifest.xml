@@ -47,12 +47,8 @@
 
         <activity android:name=".SplitwiseDataActivity"></activity>
 
-        <activity android:name=".DashboardActivity">
-
-        </activity>
-        <activity android:name=".AppIntroduction">
-            
-        </activity>
+        <activity android:name=".DashboardActivity"></activity>
+        <activity android:name=".AppIntroduction"></activity>
     </application>
 
 </manifest>
