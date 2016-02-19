@@ -48,7 +48,6 @@ import java.util.List;
 public class GmailMailsActivity extends AppCompatActivity {
 
     GoogleAccountCredential mCredential;
-    private TextView mOutputText;
     ProgressDialog mProgress;
 
     static final int REQUEST_ACCOUNT_PICKER = 1000;
@@ -56,6 +55,7 @@ public class GmailMailsActivity extends AppCompatActivity {
     static final int REQUEST_GOOGLE_PLAY_SERVICES = 1002;
     private static final String PREF_ACCOUNT_NAME = "accountName";
     private static final String[] SCOPES = { GmailScopes.GMAIL_LABELS };
+    public static ArrayList<KeyPair> gmailLabel;
 
     /**
      * Create the main activity.
@@ -64,29 +64,32 @@ public class GmailMailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LinearLayout activityLayout = new LinearLayout(this);
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT);
-        activityLayout.setLayoutParams(lp);
-        activityLayout.setOrientation(LinearLayout.VERTICAL);
-        activityLayout.setPadding(16, 16, 16, 16);
+//        LinearLayout activityLayout = new LinearLayout(this);
+//        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+//                LinearLayout.LayoutParams.MATCH_PARENT,
+//                LinearLayout.LayoutParams.MATCH_PARENT);
+//        activityLayout.setLayoutParams(lp);
+//        activityLayout.setOrientation(LinearLayout.VERTICAL);
+//        activityLayout.setPadding(16, 16, 16, 16);
+//
+//        ViewGroup.LayoutParams tlp = new ViewGroup.LayoutParams(
+//                ViewGroup.LayoutParams.WRAP_CONTENT,
+//                ViewGroup.LayoutParams.WRAP_CONTENT);
+//
+//        mOutputText = new TextView(this);
+//        mOutputText.setLayoutParams(tlp);
+//        mOutputText.setPadding(16, 16, 16, 16);
+//        mOutputText.setVerticalScrollBarEnabled(true);
+//        mOutputText.setMovementMethod(new ScrollingMovementMethod());
+//        activityLayout.addView(mOutputText);
 
-        ViewGroup.LayoutParams tlp = new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT);
-
-        mOutputText = new TextView(this);
-        mOutputText.setLayoutParams(tlp);
-        mOutputText.setPadding(16, 16, 16, 16);
-        mOutputText.setVerticalScrollBarEnabled(true);
-        mOutputText.setMovementMethod(new ScrollingMovementMethod());
-        activityLayout.addView(mOutputText);
-
+        gmailLabel = new ArrayList<>();
         mProgress = new ProgressDialog(this);
         mProgress.setMessage("Calling Gmail API ...");
 
-        setContentView(activityLayout);
+//        setContentView(activityLayout);
+
+        setContentView(R.layout.activity_gmail_mails);
 
         // Initialize credentials and service object.
         SharedPreferences settings = getPreferences(Context.MODE_PRIVATE);
@@ -107,8 +110,8 @@ public class GmailMailsActivity extends AppCompatActivity {
         if (isGooglePlayServicesAvailable()) {
             refreshResults();
         } else {
-            mOutputText.setText("Google Play Services required: " +
-                    "after installing, close and relaunch this app.");
+//            mOutputText.setText("Google Play Services required: " +
+//                    "after installing, close and relaunch this app.");
         }
     }
 
@@ -146,7 +149,7 @@ public class GmailMailsActivity extends AppCompatActivity {
                         editor.apply();
                     }
                 } else if (resultCode == RESULT_CANCELED) {
-                    mOutputText.setText("Account unspecified.");
+                   // mOutputText.setText("Account unspecified.");
                 }
                 break;
             case REQUEST_AUTHORIZATION:
@@ -171,7 +174,7 @@ public class GmailMailsActivity extends AppCompatActivity {
             if (isDeviceOnline()) {
                 new MakeRequestTask(mCredential).execute();
             } else {
-                mOutputText.setText("No network connection available.");
+             //   mOutputText.setText("No network connection available.");
             }
         }
     }
@@ -283,12 +286,16 @@ public class GmailMailsActivity extends AppCompatActivity {
         public void getLabel(Gmail service, String userId, String labelId)
                 throws IOException {
             Label label = service.users().labels().get(userId, labelId).execute();
-            Log.i("Total messages",label.getMessagesTotal().toString());
+            Log.i("Total messages", label.getMessagesTotal().toString());
+            gmailLabel.add(new KeyPair("Total Messages", label.getMessagesTotal().toString()));
+            gmailLabel.add(new KeyPair("Unread", label.getMessagesUnread().toString()));
             Log.i("Unread", label.getMessagesUnread().toString());
           //  Log.i("Unread msgs: ", label.get("messagesTotal").toString());
             System.out.println("Label " + label.getName() + " retrieved.");
             System.out.println(label.toPrettyString());
             Log.i("Label", label.toPrettyString());
+            startActivity(new Intent(GmailMailsActivity.this, FitnessActivity.class).putExtra("gmailLabel", (ArrayList<KeyPair>) gmailLabel));
+
         }
 
 //        private class MakeRequestTask extends AsyncTask<Void, Void, List<String>> {
@@ -353,7 +360,6 @@ public class GmailMailsActivity extends AppCompatActivity {
 
             @Override
         protected void onPreExecute() {
-            mOutputText.setText("");
             mProgress.show();
         }
 
@@ -361,10 +367,10 @@ public class GmailMailsActivity extends AppCompatActivity {
         protected void onPostExecute(List<String> output) {
             mProgress.hide();
             if (output == null || output.size() == 0) {
-                mOutputText.setText("No results returned.");
+                Log.i("info null","No results returned.");
             } else {
                 output.add(0, "Data retrieved using the Gmail API:");
-                mOutputText.setText(TextUtils.join("\n", output));
+                Log.i("info",TextUtils.join("\n", output));
             }
         }
 
@@ -381,11 +387,11 @@ public class GmailMailsActivity extends AppCompatActivity {
                             ((UserRecoverableAuthIOException) mLastError).getIntent(),
                             GmailMailsActivity.REQUEST_AUTHORIZATION);
                 } else {
-                    mOutputText.setText("The following error occurred:\n"
+                    Log.i("error","The following error occurred:\n"
                             + mLastError.getMessage());
                 }
             } else {
-                mOutputText.setText("Request cancelled.");
+                Log.i("error","Request cancelled.");
             }
         }
     }

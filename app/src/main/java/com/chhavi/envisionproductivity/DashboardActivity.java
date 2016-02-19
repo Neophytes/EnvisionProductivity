@@ -26,7 +26,10 @@ public class DashboardActivity extends AppCompatActivity {
         setContentView(R.layout.dashboard_layout);
 
         List<KeyPair> fitness = new ArrayList<KeyPair>();
-        //fitness = (ArrayList<KeyPair>)getIntent().getSerializableExtra("Fitness");
+        fitness = (ArrayList<KeyPair>)getIntent().getSerializableExtra("Fitness");
+
+        List<KeyPair> gmailLabel = new ArrayList<KeyPair>();
+        gmailLabel = (ArrayList<KeyPair>)getIntent().getSerializableExtra("gmailLabel");
 
 
      //   FitnessActivity fitnessActivity = FitnessActivity.getSingletonObject();
@@ -49,7 +52,7 @@ public class DashboardActivity extends AppCompatActivity {
         for(int i=0;i<10;i++)
             mData3.add("3 Put Your Card Data Here :) ");
         SwipeStack swipeStack3 = (SwipeStack) findViewById(R.id.swipeStack3);
-        swipeStack3.setAdapter(new SwipeStackAdapter(DashboardActivity.this,mData3));
+        swipeStack3.setAdapter(new SwipeStackAdapter(DashboardActivity.this, mData3));
 
         List<String> mData4 = new ArrayList<>();
         for(int i=0;i<10;i++)

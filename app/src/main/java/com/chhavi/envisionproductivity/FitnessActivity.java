@@ -56,6 +56,7 @@ import com.google.android.gms.fitness.request.SensorRequest;
 import com.google.android.gms.fitness.result.DataSourcesResult;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 
@@ -80,6 +81,7 @@ public class FitnessActivity extends AppCompatActivity {
     // Need to hold a reference to this listener, as it's passed into the "unregister"
     // method in order to stop all sensors from sending data to this listener.
     private OnDataPointListener mListener;
+    List<KeyPair> gmailLabel;
 
 
 
@@ -107,6 +109,9 @@ public class FitnessActivity extends AppCompatActivity {
 
         // When permissions are revoked the app is restarted so onCreate is sufficient to check for
         // permissions core to the Activity's functionality.
+
+        gmailLabel = new ArrayList<KeyPair>();
+        gmailLabel = (ArrayList<KeyPair>)getIntent().getSerializableExtra("gmailLabel");
         if (!checkPermissions()) {
             requestPermissions();
         }
@@ -318,8 +323,10 @@ public class FitnessActivity extends AppCompatActivity {
                     fitnessPairs.add(new KeyPair("Step Count", val.asInt() + ""));
                     fitnessPairs.add(new KeyPair("Step Count", val.asInt() + ""));
                     Log.e("asd", fitnessPairs.get(0).getValue());
-                    startActivity(new Intent(FitnessActivity.this, DashboardActivity.class).putExtra("Fitness", (ArrayList<KeyPair>)fitnessPairs));
-
+                    Intent intent = new Intent(FitnessActivity.this, DashboardActivity.class);
+                    intent.putExtra("Fitness", (ArrayList<KeyPair>)fitnessPairs);
+                    intent.putExtra("gmailLabel", (ArrayList<KeyPair>)gmailLabel);
+                    startActivity(intent);
                 }
             }
         };
