@@ -24,11 +24,31 @@ public class DashboardActivity extends AppCompatActivity {
         setContentView(R.layout.dashboard_layout);
 
 
-        List<String> mData = new ArrayList<>();
+        List<String> mData1 = new ArrayList<>();
         for(int i=0;i<10;i++)
-            mData.add("asd");
-        SwipeStack swipeStack = (SwipeStack) findViewById(R.id.swipeStack);
-        swipeStack.setAdapter(new SwipeStackAdapter(DashboardActivity.this,mData));
+            mData1.add("1 Put Your Card Data Here :) ");
+        SwipeStack swipeStack1 = (SwipeStack) findViewById(R.id.swipeStack1);
+        swipeStack1.setAdapter(new SwipeStackAdapter(DashboardActivity.this,mData1));
+
+        List<String> mData2 = new ArrayList<>();
+        for(int i=0;i<10;i++)
+            mData2.add("2 Put Your Card Data Here :) ");
+        SwipeStack swipeStack2 = (SwipeStack) findViewById(R.id.swipeStack2);
+        swipeStack2.setAdapter(new SwipeStackAdapter(DashboardActivity.this,mData2));
+
+        List<String> mData3 = new ArrayList<>();
+        for(int i=0;i<10;i++)
+            mData2.add("3 Put Your Card Data Here :) ");
+        SwipeStack swipeStack3 = (SwipeStack) findViewById(R.id.swipeStack3);
+        swipeStack2.setAdapter(new SwipeStackAdapter(DashboardActivity.this,mData3));
+
+        List<String> mData4 = new ArrayList<>();
+        for(int i=0;i<10;i++)
+            mData2.add("4 Put Your Card Data Here :) ");
+        SwipeStack swipeStack4 = (SwipeStack) findViewById(R.id.swipeStack4);
+        swipeStack4.setAdapter(new SwipeStackAdapter(DashboardActivity.this,mData4));
+
+
     }
 
     public class SwipeStackAdapter extends BaseAdapter {
