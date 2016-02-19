@@ -30,6 +30,9 @@ dependencies {
     compile('com.google.apis:google-api-services-gmail:v1-rev29-1.20.0') {
         exclude group: 'org.apache.httpcomponents'
     }
+    compile('com.google.apis:google-api-services-calendar:v3-rev125-1.20.0') {
+        exclude group: 'org.apache.httpcomponents'
+    }
     compile 'com.google.android.gms:play-services-fitness:8.4.0'
 
     compile 'com.android.support:design:23+'

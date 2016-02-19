@@ -4,8 +4,8 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="150dp"
+        android:layout_height="match_parent"
         android:gravity="center"
         android:text="New Text"
         android:textSize="17sp"
@@ -13,11 +13,8 @@
         android:layout_gravity="center_horizontal"
         android:background="@color/orange"
         android:textStyle="italic"
-        android:padding="10sp"
-        android:layout_marginBottom="50sp"
-        android:layout_marginLeft="50sp"
-        android:layout_marginRight="50sp"
-        android:layout_marginTop="50sp"
+        android:layout_margin="30dp"
+
         />
 
 </LinearLayout>
