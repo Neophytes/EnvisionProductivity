@@ -21,16 +21,21 @@
             android:value="@integer/google_play_services_version" />
 
         <activity android:name=".GmailMailsActivity">
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".FitnessActivity"></activity>
         <activity android:name=".MainActivity" />
-        <activity android:name=".SplitwiseDataActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".SplitwiseDataActivity"/>
+        <activity android:name=".Rescuetime_Sample"></activity>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        <activity android:name=".SplashScreen"></activity>
+
+
+        <activity android:name=".DashboardActivity">
+
         </activity>
     </application>
 
