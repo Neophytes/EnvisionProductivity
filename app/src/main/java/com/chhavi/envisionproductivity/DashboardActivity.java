@@ -1,8 +1,10 @@
 package com.chhavi.envisionproductivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -23,6 +25,13 @@ public class DashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard_layout);
 
+        List<KeyPair> fitness = new ArrayList<KeyPair>();
+        fitness = (ArrayList<KeyPair>)getIntent().getSerializableExtra("Fitness");
+
+
+     //   FitnessActivity fitnessActivity = FitnessActivity.getSingletonObject();
+     //   ArrayList<KeyPair> fitnessPair = fitnessActivity.fitnessPairs;
+        Log.e("run", fitness.get(0).getValue());
 
         List<String> mData = new ArrayList<>();
         for(int i=0;i<10;i++)
@@ -62,6 +71,7 @@ public class DashboardActivity extends AppCompatActivity {
             TextView textViewCard = (TextView) convertView.findViewById(R.id.textViewCard);
             textViewCard.setText(mData.get(position));
 
+           // FitnessActivity.
             return convertView;
         }
     }
