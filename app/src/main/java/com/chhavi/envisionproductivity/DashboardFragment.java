@@ -18,6 +18,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 import link.fls.SwipeStack;
 
@@ -54,7 +55,16 @@ public class DashboardFragment extends Fragment {
         swipeStack3.setAdapter(adapter);
         ArrayList<KeyPair> fitness  = (ArrayList<KeyPair>) getArguments().getSerializable("Fitness");
 
-        swipeStack1.setAdapter(new SwipeStackAdapter(getActivity(),fitness, getResources().getColor(R.color.sticky1)));
+        swipeStack1.setAdapter(new SwipeStackAdapter(getActivity(), fitness, getResources().getColor(R.color.sticky1)));
+
+
+        List<KeyPair> gmailLabel = new ArrayList<KeyPair>();
+        gmailLabel.add(new KeyPair("Messages Unread", "23"));
+        gmailLabel.add(new KeyPair("Messages To be replied", "52"));
+        gmailLabel.add(new KeyPair("Total Messages", "113"));
+        SwipeStack swipeStack2 = (SwipeStack) convertview.findViewById(R.id.swipeStack2);
+        swipeStack2.setBackgroundColor(getResources().getColor(R.color.sticky2));
+        swipeStack2.setAdapter(new SwipeStackAdapter(getActivity(),gmailLabel, getResources().getColor(R.color.sticky2)));
 
         return convertview;
     }
