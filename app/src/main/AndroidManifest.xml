@@ -31,6 +31,11 @@
 
         <activity android:name=".SplashScreen"></activity>
         <activity android:name=".FitnessActivity">
+        
+
+
+
+
         </activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".SplitwiseDataActivity" />
