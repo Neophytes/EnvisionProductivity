@@ -28,17 +28,19 @@
 
         </activity>
 
-        <activity android:name=".Rescuetime_Sample"></activity>
+        <activity android:name=".Rescuetime_Sample">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".SplashScreen"></activity>
         <activity android:name=".FitnessActivity"></activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".SplitwiseDataActivity" />
         <activity android:name=".DashboardActivity"></activity>
         <activity android:name=".MyNavigationDrawer" android:theme="@style/MyNavigationDrawerTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />=======
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
 
     </application>
