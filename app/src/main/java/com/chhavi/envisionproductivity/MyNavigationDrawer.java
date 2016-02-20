@@ -40,8 +40,8 @@ public class MyNavigationDrawer extends MaterialNavigationDrawer {
         ChartProductivityFragment chartProductivityFragment = new ChartProductivityFragment();
         AboutUsFragment aboutUsFragment = new AboutUsFragment();
 
-        this.addSection(newSection("Dashboard",R.mipmap.ic_launcher , dashboardFragment));
-        this.addSection(newSection("Chart Productivity", R.mipmap.ic_launcher, chartProductivityFragment));
-        this.addSection(newSection("About Us", R.mipmap.ic_launcher, aboutUsFragment));
+        this.addSection(newSection("Dashboard",R.drawable.dashboardicon , dashboardFragment));
+        this.addSection(newSection("Chart Productivity", R.drawable.chartsicon, chartProductivityFragment));
+        this.addSection(newSection("About Us", R.drawable.info, aboutUsFragment));
     }
 }

@@ -30,6 +30,7 @@
 
             android:text="How Productive Are You?"
             android:id="@+id/textView2"
+            android:textStyle="bold"
             android:layout_gravity="center_horizontal" />
 
         <com.github.mikephil.charting.charts.PieChart
@@ -57,6 +58,7 @@
             android:layout_marginTop="5dp"
             android:textSize="18sp"
             android:text="How Fit Are You?"
+            android:textStyle="bold"
             android:layout_gravity="center_horizontal" />
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/chart2"
