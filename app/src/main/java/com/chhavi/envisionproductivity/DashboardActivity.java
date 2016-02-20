@@ -66,7 +66,6 @@ public class DashboardActivity extends AppCompatActivity {
         for(int i=0;i<10;i++)
             mData1.add("1 Put Your Card Data Here :) ");
         SwipeStack swipeStack1 = (SwipeStack) findViewById(R.id.swipeStack1);
-
         swipeStack1.setAdapter(new SwipeStackAdapter(DashboardActivity.this,fitness, getResources().getColor(R.color.sticky1)));
 
         List<String> mData2 = new ArrayList<>();
@@ -203,7 +202,6 @@ public class DashboardActivity extends AppCompatActivity {
 
                 rescueTime.add(new KeyPair("Date", Date.get(0)));
                 rescueTime.add(new KeyPair("Time Spent", TimeSpent.get(0).toString()));
-
                 rescueTime.add(new KeyPair("Productivity", Productivity.get(0).toString()));
                 adapter = new SwipeStackAdapter(DashboardActivity.this, rescueTime, getResources().getColor(R.color.sticky3));
                 swipeStack3.setAdapter(adapter);
