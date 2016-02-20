@@ -47,6 +47,11 @@ public class DashboardFragment extends Fragment {
 
         new RetrieveFeedTask().execute();
 
+
+        List<KeyPair> events = new ArrayList<KeyPair>();
+        events.add(new KeyPair("Upcoming Birthday", "Kapil\n 20/02/16"));
+        events.add(new KeyPair("Upcoming Event", "Social Hack Eve \n 3/03/16"));
+        events.add(new KeyPair("Upcoming Holiday", "Holi \n 23/03/16"));
         rescueTime = new ArrayList<>();
         SwipeStack swipeStack1 = (SwipeStack) convertview.findViewById(R.id.swipeStack1);
          swipeStack3 = (SwipeStack) convertview.findViewById(R.id.swipeStack3);
@@ -63,8 +68,11 @@ public class DashboardFragment extends Fragment {
         gmailLabel.add(new KeyPair("Messages To be replied", "52"));
         gmailLabel.add(new KeyPair("Total Messages", "113"));
         SwipeStack swipeStack2 = (SwipeStack) convertview.findViewById(R.id.swipeStack2);
-        swipeStack2.setBackgroundColor(getResources().getColor(R.color.sticky2));
-        swipeStack2.setAdapter(new SwipeStackAdapter(getActivity(),gmailLabel, getResources().getColor(R.color.sticky2)));
+        swipeStack2.setAdapter(new SwipeStackAdapter(getActivity(), gmailLabel, getResources().getColor(R.color.sticky2)));
+
+        SwipeStack swipeStack4 = (SwipeStack) convertview.findViewById(R.id.swipeStack4);
+        swipeStack4.setAdapter(new SwipeStackAdapter(getActivity(),events, getResources().getColor(R.color.sticky4)));
+
 
         return convertview;
     }

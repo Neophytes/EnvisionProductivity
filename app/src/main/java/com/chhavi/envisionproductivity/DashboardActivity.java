@@ -55,6 +55,8 @@ public class DashboardActivity extends AppCompatActivity {
         gmailLabel.add(new KeyPair("Messages Unread", "23"));
         gmailLabel.add(new KeyPair("Messages To be replied", "52"));
         gmailLabel.add(new KeyPair("Total Messages", "113"));
+
+
      //   gmailLabel = (ArrayList<KeyPair>)getIntent().getSerializableExtra("gmailLabel");
 
 
