@@ -157,17 +157,17 @@ public class DashboardActivity extends AppCompatActivity {
 
                 try {
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-                    Log.i("JSON", bufferedReader.readLine());
-                    StringBuilder stringBuilder = new StringBuilder();
-                    String line;
-                    while ((line = bufferedReader.readLine()) != null) {
-                        stringBuilder.append(line).append("\n");
-                    }
-                    bufferedReader.close();
-                    return stringBuilder.toString();
-                } catch (Exception e){
-                    Log.e("Err", e.getMessage());
-                    return null;
+                    String line = "lol";
+                    line = bufferedReader.readLine();
+                    return line;
+//                    Log.i("JSON", bufferedReader.readLine());
+//                    StringBuilder stringBuilder = new StringBuilder();
+//                    Log.i("LINE", line);
+//                    while (line != null) {
+//                        stringBuilder.append(line).append("\n");
+//                    }
+//                    bufferedReader.close();
+//                    return stringBuilder.toString();
                 }
                 finally{
                     urlConnection.disconnect();
