@@ -88,7 +88,7 @@ public class SplashScreen extends Activity {
 
                 // Run next activity
                 Intent intent = new Intent();
-                intent.setClass(sPlashScreen, Rescuetime_Sample.class);
+                intent.setClass(sPlashScreen, FitnessActivity.class);
                 startActivity(intent);
                 //    stop();
             }

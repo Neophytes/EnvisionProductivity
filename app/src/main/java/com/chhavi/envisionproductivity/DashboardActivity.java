@@ -66,7 +66,6 @@ public class DashboardActivity extends AppCompatActivity {
         for(int i=0;i<10;i++)
             mData1.add("1 Put Your Card Data Here :) ");
         SwipeStack swipeStack1 = (SwipeStack) findViewById(R.id.swipeStack1);
-
         swipeStack1.setAdapter(new SwipeStackAdapter(DashboardActivity.this,fitness, getResources().getColor(R.color.sticky1)));
 
         List<String> mData2 = new ArrayList<>();
@@ -158,17 +157,17 @@ public class DashboardActivity extends AppCompatActivity {
 
                 try {
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-                    Log.i("JSON", bufferedReader.readLine());
-                    StringBuilder stringBuilder = new StringBuilder();
-                    String line;
-                    while ((line = bufferedReader.readLine()) != null) {
-                        stringBuilder.append(line).append("\n");
-                    }
-                    bufferedReader.close();
-                    return stringBuilder.toString();
-                } catch (Exception e){
-                    Log.e("Err", e.getMessage());
-                    return null;
+                    String line = "lol";
+                    line = bufferedReader.readLine();
+                    return line;
+//                    Log.i("JSON", bufferedReader.readLine());
+//                    StringBuilder stringBuilder = new StringBuilder();
+//                    Log.i("LINE", line);
+//                    while (line != null) {
+//                        stringBuilder.append(line).append("\n");
+//                    }
+//                    bufferedReader.close();
+//                    return stringBuilder.toString();
                 }
                 finally{
                     urlConnection.disconnect();
@@ -207,7 +206,6 @@ public class DashboardActivity extends AppCompatActivity {
 
                 rescueTime.add(new KeyPair("Date", Date.get(0)));
                 rescueTime.add(new KeyPair("Time Spent", TimeSpent.get(0).toString()));
-
                 rescueTime.add(new KeyPair("Productivity", Productivity.get(0).toString()));
                 adapter = new SwipeStackAdapter(DashboardActivity.this, rescueTime, getResources().getColor(R.color.sticky3));
                 swipeStack3.setAdapter(adapter);
