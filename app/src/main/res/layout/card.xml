@@ -12,10 +12,11 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="HEADER"
-        android:textSize="17sp"
+        android:textSize="23sp"
         android:id="@+id/header"
         android:layout_gravity="center_horizontal"
         android:textStyle="bold"
+        android:textColor="@android:color/black"
         android:layout_margin="30dp"
         />
 
@@ -26,6 +27,7 @@
         android:text="Text"
         android:textSize="17sp"
         android:id="@+id/text"
+        android:textColor="@color/secondaryText"
         android:layout_gravity="center_horizontal"
         android:textStyle="italic"
         android:layout_margin="30dp"
