@@ -323,8 +323,8 @@ public class FitnessActivity extends AppCompatActivity {
                     fitnessPairs.add(new KeyPair("Calories Burnt", "250"));
                     /*fitnessPairs.add(new KeyPair("Step Count", val.asInt() + ""));*/
                     Log.e("asd", fitnessPairs.get(0).getValue());
-                    Intent intent = new Intent(FitnessActivity.this, DashboardActivity.class);
-                    intent.putExtra("Fitness", (ArrayList<KeyPair>)fitnessPairs);
+                    Intent intent = new Intent(FitnessActivity.this, MyNavigationDrawer.class);
+                    intent.putExtra("Fitness", (ArrayList<KeyPair>) fitnessPairs);
                  //   intent.putExtra("gmailLabel", (ArrayList<KeyPair>)gmailLabel);
                     startActivity(intent);
                 }

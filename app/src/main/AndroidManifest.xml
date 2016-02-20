@@ -27,12 +27,15 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".AppIntroduction"></activity>
+        <activity android:name=".AppIntroduction">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <activity android:name=".Rescuetime_Sample">
-
-
-        </activity>
+            </activity>
 
         <activity android:name=".SplashScreen"></activity>
         <activity android:name=".FitnessActivity">
@@ -42,6 +45,8 @@
 
 
         </activity>
+
+
         <activity android:name=".MainActivity" />
         <activity android:name=".SplitwiseDataActivity" />
         <activity android:name=".DashboardActivity"></activity>
