@@ -7,11 +7,20 @@
     android:layout_margin="10dp"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:layout_width="8sp"
+        android:layout_height="8sp"
+        android:id="@+id/icon"
+        android:layout_marginLeft="5sp"
+        android:layout_marginTop="5sp"
+        />
+
     <TextView
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="HEADER"
+        android:textStyle="bold"
         android:textSize="20sp"
         android:textColor="@color/colorPrimary"
         android:id="@+id/header"

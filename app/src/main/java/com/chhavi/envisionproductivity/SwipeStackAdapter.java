@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -18,11 +19,13 @@ public class SwipeStackAdapter extends BaseAdapter {
     private List<KeyPair> mData;
     private Context context;
     private int color;
+    private int resourceID;
 
-    public SwipeStackAdapter(Context context, List<KeyPair> data, int color) {
+    public SwipeStackAdapter(Context context, List<KeyPair> data, int color, int resourceID) {
         this.mData = data;
         this.context = context;
         this.color = color;
+        this.resourceID = resourceID;
     }
 
     @Override
@@ -46,10 +49,12 @@ public class SwipeStackAdapter extends BaseAdapter {
         convertView = inflater.inflate(R.layout.card, parent, false);
         TextView textHeader = (TextView) convertView.findViewById(R.id.header);
         TextView text = (TextView) convertView.findViewById(R.id.text);
+        ImageView icon = (ImageView)convertView.findViewById(R.id.icon);
         LinearLayout cardLayout = (LinearLayout)convertView.findViewById(R.id.card_background);
         cardLayout.setBackgroundColor(color);
         textHeader.setText(mData.get(position).getName());
         text.setText(mData.get(position).getValue());
+        icon.setImageResource(resourceID);
 
         // FitnessActivity.
         return convertView;

@@ -68,20 +68,20 @@ public class DashboardActivity extends AppCompatActivity {
         for(int i=0;i<10;i++)
             mData1.add("1 Put Your Card Data Here :) ");
         SwipeStack swipeStack1 = (SwipeStack) findViewById(R.id.swipeStack1);
-        swipeStack1.setAdapter(new SwipeStackAdapter(DashboardActivity.this,fitness, getResources().getColor(R.color.sticky1)));
+        swipeStack1.setAdapter(new SwipeStackAdapter(DashboardActivity.this,fitness, getResources().getColor(R.color.sticky1), R.drawable.fit));
 
         List<String> mData2 = new ArrayList<>();
         for(int i=0;i<10;i++)
             mData2.add("2 Put Your Card Data Here :) ");
         SwipeStack swipeStack2 = (SwipeStack) findViewById(R.id.swipeStack2);
         swipeStack2.setBackgroundColor(getResources().getColor(R.color.sticky2));
-        swipeStack2.setAdapter(new SwipeStackAdapter(DashboardActivity.this,gmailLabel, getResources().getColor(R.color.sticky2)));
+        swipeStack2.setAdapter(new SwipeStackAdapter(DashboardActivity.this,gmailLabel, getResources().getColor(R.color.sticky2), R.drawable.googlemail));
 
         List<String> mData3 = new ArrayList<>();
         for(int i=0;i<10;i++)
             mData3.add("3 Put Your Card Data Here :) ");
 
-        adapter = new SwipeStackAdapter(DashboardActivity.this, rescueTime, getResources().getColor(R.color.sticky3));
+        adapter = new SwipeStackAdapter(DashboardActivity.this, rescueTime, getResources().getColor(R.color.sticky3), R.drawable.googlemail);
             swipeStack3 = (SwipeStack) findViewById(R.id.swipeStack3);
         swipeStack3.setBackgroundColor(getResources().getColor(R.color.sticky3));
         swipeStack3.setAdapter(adapter);
@@ -91,7 +91,7 @@ public class DashboardActivity extends AppCompatActivity {
             mData4.add("4 Put Your Card Data Here :) ");
         SwipeStack swipeStack4 = (SwipeStack) findViewById(R.id.swipeStack4);
         swipeStack4.setBackgroundColor(getResources().getColor(R.color.sticky4));
-        swipeStack4.setAdapter(new SwipeStackAdapter(DashboardActivity.this,fitness, getResources().getColor(R.color.sticky4)));
+        swipeStack4.setAdapter(new SwipeStackAdapter(DashboardActivity.this,fitness, getResources().getColor(R.color.sticky4), R.drawable.googlemail));
 
     }
 
@@ -169,7 +169,7 @@ public class DashboardActivity extends AppCompatActivity {
                 rescueTime.add(new KeyPair("Date", Date.get(0)));
                 rescueTime.add(new KeyPair("Time Spent", TimeSpent.get(0).toString()));
                 rescueTime.add(new KeyPair("Productivity", Productivity.get(0).toString()));
-                adapter = new SwipeStackAdapter(DashboardActivity.this, rescueTime, getResources().getColor(R.color.sticky3));
+                adapter = new SwipeStackAdapter(DashboardActivity.this, rescueTime, getResources().getColor(R.color.sticky3),R.drawable.fit);
                 swipeStack3.setAdapter(adapter);
 
 
