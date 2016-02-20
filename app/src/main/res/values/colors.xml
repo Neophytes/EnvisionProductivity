@@ -9,4 +9,10 @@
     <color name="lightBlue">#ECF3FF</color>
     <color name="orange">#FFB38A</color>
     <color name="secondaryText">#727272</color>
+
+    <color name="sticky1">#FFEB3B</color>
+    <color name="sticky2">#B3E5FC</color>
+    <color name="sticky3">#CDDC39</color>
+    <color name="sticky4">#E96F99</color>
+
 </resources>
