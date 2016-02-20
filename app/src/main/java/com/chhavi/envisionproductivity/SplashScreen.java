@@ -43,7 +43,7 @@ public class SplashScreen extends Activity {
         scaleAnim12.setDuration(2000);
         scaleAnim12.setStartOffset(900);
 
-        TextView justSpecial = (TextView)findViewById(R.id.just_special_text);
+        ImageView justSpecial = (ImageView) findViewById(R.id.icon);
         justSpecial.setVisibility(View.VISIBLE);
         justSpecial.setAnimation(scaleAnim1);
 
