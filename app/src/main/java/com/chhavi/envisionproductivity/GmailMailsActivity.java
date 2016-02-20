@@ -270,8 +270,7 @@ public class GmailMailsActivity extends AppCompatActivity {
             // Get the labels in the user's account.
             String user = "me";
             List<String> labels = new ArrayList<String>();
-            ListLabelsResponse listResponse =
-                    mService.users().labels().list(user).execute();
+            ListLabelsResponse listResponse = mService.users().labels().list(user).execute();
             for (Label label : listResponse.getLabels()) {
                 labels.add(label.getName());
             }

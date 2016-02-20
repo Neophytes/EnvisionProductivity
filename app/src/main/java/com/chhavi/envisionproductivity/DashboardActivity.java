@@ -126,7 +126,7 @@ public class DashboardActivity extends AppCompatActivity {
         private Exception exception;
 
         protected void onPreExecute() {
-            progressBar.setVisibility(View.VISIBLE);
+   //         progressBar.setVisibility(View.VISIBLE);
         }
 
         protected String doInBackground(Void... urls) {
@@ -162,7 +162,7 @@ public class DashboardActivity extends AppCompatActivity {
             if(response == null) {
                 response = "THERE WAS AN ERROR";
             }
-            progressBar.setVisibility(View.GONE);
+           // progressBar.setVisibility(View.GONE);
             Log.i("INFO", response);
             try {
                 JSONObject jsonObject = new JSONObject(response);
