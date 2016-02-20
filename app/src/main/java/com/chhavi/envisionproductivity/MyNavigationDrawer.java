@@ -24,7 +24,7 @@ public class MyNavigationDrawer extends MaterialNavigationDrawer {
     public List<KeyPair> fitness ;
     @Override
     public void init(Bundle savedInstanceState) {
-        account = new MaterialAccount(this.getResources(), "User Name",null,null,R.drawable.tickmark);
+        account = new MaterialAccount(this.getResources(), null,null,null,R.drawable.tickmark);
         this.addAccount(account);
         fitness = new ArrayList<KeyPair>();
         fitness = (ArrayList<KeyPair>)getIntent().getSerializableExtra("Fitness");
