@@ -21,6 +21,12 @@
             android:value="@integer/google_play_services_version" />
 
         <activity android:name=".GmailMailsActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            </activity>
+            <activity android:name=".AppIntroduction">
 
         </activity>
 
@@ -32,10 +38,6 @@
 
         <activity android:name=".SplashScreen">
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
             </activity>
 
 
@@ -47,8 +49,11 @@
 
         <activity android:name=".SplitwiseDataActivity"></activity>
 
-        <activity android:name=".DashboardActivity"></activity>
-        <activity android:name=".AppIntroduction"></activity>
+
+        <activity android:name=".DashboardActivity">
+
+        </activity>
+
     </application>
 
 </manifest>
