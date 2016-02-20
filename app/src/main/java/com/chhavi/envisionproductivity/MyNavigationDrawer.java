@@ -20,7 +20,7 @@ public class MyNavigationDrawer extends MaterialNavigationDrawer {
     MaterialAccount account;
     @Override
     public void init(Bundle savedInstanceState) {
-        account = new MaterialAccount(this.getResources(), "User Name",null,null,null);
+        account = new MaterialAccount(this.getResources(), "User Name",null,null,R.drawable.tickmark);
         this.addAccount(account);
         //ManifestoFragment sampleClassFragment = new ManifestoFragment();
         DashboardFragment dashboardFragment = new DashboardFragment();
