@@ -106,6 +106,7 @@ public class ChartProductivityFragment extends Fragment {
         xAxis.setSpaceBetweenLabels(2);
 
 
+
         YAxis leftAxis = mChart.getAxisLeft();
         // leftAxis.setTypeface(mTf);
         leftAxis.setLabelCount(8, false);
@@ -151,7 +152,7 @@ public class ChartProductivityFragment extends Fragment {
 
 
 
-        for (int c : ColorTemplate.VORDIPLOM_COLORS)
+        for (int c : ColorTemplate.COLORFUL_COLORS)
             colors.add(c);
 //
         //      for (int c : ColorTemplate.JOYFUL_COLORS)
@@ -166,7 +167,7 @@ public class ChartProductivityFragment extends Fragment {
         //  for (int c : ColorTemplate.PASTEL_COLORS)
         //    colors.add(c);
 
-        colors.add(ColorTemplate.getHoloBlue());
+//      /  colors.add(ColorTemplate.getHoloBlue());
 
         //dataSets.setColors(colors);
 

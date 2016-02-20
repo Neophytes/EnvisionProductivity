@@ -11,10 +11,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/tickmark"
-        android:layout_marginLeft="50sp"
+        android:layout_marginLeft="40sp"
         android:layout_marginRight="20sp"
         android:layout_marginBottom="20sp"
-        android:layout_marginTop="100sp"
+        android:layout_marginTop="130sp"
         android:gravity="center"
         android:id="@+id/icon"
         android:layout_gravity="center_vertical" />

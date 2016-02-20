@@ -8,23 +8,65 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        <android.support.v7.widget.CardView
+            android:layout_margin="20dp"
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-    
-    <com.github.mikephil.charting.charts.PieChart
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="18sp"
+
+            android:text="How Productive Are You?"
+            android:id="@+id/textView2"
+            android:layout_gravity="center_horizontal" />
+
+        <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/chart1"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         />
+    </LinearLayout>
+        </android.support.v7.widget.CardView>
 
+        <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+            android:layout_margin="20dp"
+            android:padding="10dp"
+        android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="18sp"
+            android:text="How Fit Are You?"
+            android:layout_gravity="center_horizontal" />
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/chart2"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         />
     </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        </LinearLayout>
     </ScrollView>
     
 

@@ -56,11 +56,11 @@ public class DashboardFragment extends Fragment {
         SwipeStack swipeStack1 = (SwipeStack) convertview.findViewById(R.id.swipeStack1);
          swipeStack3 = (SwipeStack) convertview.findViewById(R.id.swipeStack3);
         rescueTime.add(new KeyPair("Please Wait", "We are calculating your productivity"));
-        adapter = new SwipeStackAdapter(getActivity(), rescueTime, getResources().getColor(R.color.sticky3));
+        adapter = new SwipeStackAdapter(getActivity(), rescueTime, getResources().getColor(R.color.sticky3), R.drawable.clock);
         swipeStack3.setAdapter(adapter);
         ArrayList<KeyPair> fitness  = (ArrayList<KeyPair>) getArguments().getSerializable("Fitness");
 
-        swipeStack1.setAdapter(new SwipeStackAdapter(getActivity(), fitness, getResources().getColor(R.color.sticky1)));
+        swipeStack1.setAdapter(new SwipeStackAdapter(getActivity(), fitness, getResources().getColor(R.color.sticky1), R.drawable.fit));
 
 
         List<KeyPair> gmailLabel = new ArrayList<KeyPair>();
@@ -68,10 +68,10 @@ public class DashboardFragment extends Fragment {
         gmailLabel.add(new KeyPair("Messages To be replied", "52"));
         gmailLabel.add(new KeyPair("Total Messages", "113"));
         SwipeStack swipeStack2 = (SwipeStack) convertview.findViewById(R.id.swipeStack2);
-        swipeStack2.setAdapter(new SwipeStackAdapter(getActivity(), gmailLabel, getResources().getColor(R.color.sticky2)));
+        swipeStack2.setAdapter(new SwipeStackAdapter(getActivity(), gmailLabel, getResources().getColor(R.color.sticky2), R.drawable.googlemail));
 
         SwipeStack swipeStack4 = (SwipeStack) convertview.findViewById(R.id.swipeStack4);
-        swipeStack4.setAdapter(new SwipeStackAdapter(getActivity(),events, getResources().getColor(R.color.sticky4)));
+        swipeStack4.setAdapter(new SwipeStackAdapter(getActivity(),events, getResources().getColor(R.color.sticky4), R.drawable.calendar));
 
 
         return convertview;
