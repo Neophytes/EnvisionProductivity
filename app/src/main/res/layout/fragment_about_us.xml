@@ -3,14 +3,15 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/yellow">
+    android:background="@color/yellow"
+    >
 
     <ImageView
-        android:layout_width="100sp"
-        android:layout_height="100sp"
+        android:layout_width="200sp"
+        android:layout_height="200sp"
+        android:layout_gravity="center_horizontal"
         android:src="@drawable/tickmark"
-        android:layout_gravity="center"
-        android:layout_marginTop="100sp"/>
+        android:layout_marginTop="50sp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -19,19 +20,47 @@
         android:text="@string/app_name"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="50sp"
+        android:gravity="center_horizontal"
+        android:layout_marginLeft="85sp"
         android:layout_marginTop="20sp"
-        android:textStyle="bold"
-        android:id="@+id/textView"
-        android:layout_gravity="center_horizontal" />
+        android:textStyle="bold"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Personalized Producitvity Dashboard"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="italic"
+        android:textSize="20sp"
+        android:gravity="center_horizontal"
+        android:layout_marginLeft="2sp"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/textView3" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:autoLink="web"
+        android:gravity="center"
+        android:text="Open Source. Check out: "
+        android:id="@+id/textView1"
+        android:textColor="@color/secondaryText"
+        android:layout_marginTop="70sp"
+        android:layout_marginLeft="17sp"
+        android:layout_gravity="center_horizontal" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:autoLink="web"
+        android:gravity="center"
         android:text="http://neophytes.github.io/EnvisionProductivity/"
         android:id="@+id/textView2"
-        android:layout_marginTop="200sp"
+        android:textColor="@color/secondaryText"
+        android:layout_marginTop="8sp"
+        android:layout_marginLeft="10sp"
         android:layout_gravity="center_horizontal" />
 
 </LinearLayout>
